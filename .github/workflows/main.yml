@@ -7,6 +7,24 @@ on:
     branches: ["main"]
   pull_request:
     branches: ["main"]
+  workflow_dispatch:
+    inputs:
+      artifact_matrix:
+        description: "Choose matrix artifact for deploy"
+        default: "ubuntu-latest-3.8"
+        required: true
+        type: choice
+        options:
+          [
+            "ubuntu-latest-3.8",
+            "ubuntu-latest-3.9",
+            "windows-latest-3.8",
+            "windows-latest-3.9",
+          ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 env:
   PythonVersion: 3.8
