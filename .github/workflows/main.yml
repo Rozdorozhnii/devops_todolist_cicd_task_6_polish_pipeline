@@ -9,18 +9,22 @@ on:
     branches: ["main"]
   workflow_dispatch:
     inputs:
-      artifact_matrix:
-        description: "Choose matrix artifact for deploy"
-        default: "ubuntu-latest-3.8"
+      os:
+        description: "Select OS for deployment"
         required: true
+        default: "ubuntu-latest"
         type: choice
         options:
-          [
-            "ubuntu-latest-3.8",
-            "ubuntu-latest-3.9",
-            "windows-latest-3.8",
-            "windows-latest-3.9",
-          ]
+          - "ubuntu-latest"
+          - "windows-latest"
+      python_version:
+        description: "Select Python version"
+        required: true
+        default: "3.8"
+        type: choice
+        options:
+          - "3.8"
+          - "3.9"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -28,6 +32,7 @@ concurrency:
 
 env:
   PythonVersion: 3.8
+  OSDefault: ubuntu-latest
   DockerImageName: todoapp
 
 jobs:
@@ -77,7 +82,7 @@ jobs:
       - name: Upload python artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: python-artifacts
+          name: python-artifacts-${{ matrix.OsType }}-${{ matrix.PythonVersion }}
           path: .
 
       - name: Upload helm artifacts
@@ -103,7 +108,7 @@ jobs:
       - uses: actions/download-artifact@v4
         name: Download python artifacts
         with:
-          name: python-artifacts
+          name: python-artifacts-${{ inputs.os || env.OSDefault }}-${{ inputs.python_version || env.PythonVersion }}
           path: .
 
       - name: Login to Docker Hub
