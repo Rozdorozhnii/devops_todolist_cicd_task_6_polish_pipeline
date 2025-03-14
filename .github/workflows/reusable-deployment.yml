@@ -6,24 +6,24 @@ on:
     inputs:
       environment:
         required: true
-        description: 'Environment to deploy to'
+        description: "Environment to deploy to"
         type: string
       version:
         required: true
         type: string
       helm-values-path:
         type: string
-        default: './todoapp/values.yaml'
+        default: "./todoapp/values.yaml"
       helm-release-name:
         default: todoapp
         type: string
 jobs:
-    deploy-helm:
-      name: ${{ inputs.environment }}
-      runs-on: ubuntu-latest
-      environment: ${{ inputs.environment }}
+  deploy-helm:
+    name: ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
 
-      steps:
+    steps:
       - uses: actions/download-artifact@v4
         with:
           name: helm-package
@@ -77,4 +77,5 @@ jobs:
           --set todoapp.secrets.DB_PASSWORD="${{ secrets.MYSQL_PASSWORD }}" \
           --set todoapp.secrets.DB_HOST="${{ secrets.APP_DB_HOST }}" \
           --set todoapp.image.tag=${{ github.sha }}
-
+          --set todoapp.image.repository="rozdorozhnii/todoapp"
+          --set todoapp.namespace="todoapp-${{ inputs.environment }}"
