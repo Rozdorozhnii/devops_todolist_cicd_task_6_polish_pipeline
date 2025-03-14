@@ -71,6 +71,7 @@ jobs:
           --set mysql.secrets.MYSQL_ROOT_PASSWORD="${{ secrets.MYSQL_ROOT_PASSWORD }}" \
           --set mysql.secrets.MYSQL_USER="${{ secrets.MYSQL_USER }}" \
           --set mysql.secrets.MYSQL_PASSWORD="${{ secrets.MYSQL_PASSWORD }}" \
+          --set todoapp.service.nodePort=${{ inputs.node-port }} \
           --set todoapp.secrets.SECRET_KEY="${{ secrets.APP_SECRET_KEY }}" \
           --set todoapp.secrets.DB_NAME="${{ secrets.APP_DB_NAME }}" \
           --set todoapp.secrets.DB_USER="${{ secrets.MYSQL_USER }}" \
@@ -85,6 +86,7 @@ jobs:
           --set mysql.secrets.MYSQL_ROOT_PASSWORD="${{ secrets.MYSQL_ROOT_PASSWORD }}" \
           --set mysql.secrets.MYSQL_USER="${{ secrets.MYSQL_USER }}" \
           --set mysql.secrets.MYSQL_PASSWORD="${{ secrets.MYSQL_PASSWORD }}" \
+          --set todoapp.service.nodePort=${{ inputs.node-port }} \
           --set todoapp.secrets.SECRET_KEY="${{ secrets.APP_SECRET_KEY }}" \
           --set todoapp.secrets.DB_NAME="${{ secrets.APP_DB_NAME }}" \
           --set todoapp.secrets.DB_USER="${{ secrets.MYSQL_USER }}" \
