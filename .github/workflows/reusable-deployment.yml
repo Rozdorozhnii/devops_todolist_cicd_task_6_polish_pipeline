@@ -17,6 +17,10 @@ on:
       helm-release-name:
         default: todoapp
         type: string
+      node-port:
+        description: "NodePort value for the service"
+        type: number
+
 jobs:
   deploy-helm:
     name: ${{ inputs.environment }}
