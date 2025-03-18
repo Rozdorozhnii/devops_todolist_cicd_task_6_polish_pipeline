@@ -23,15 +23,15 @@ on:
         default: "3.8"
         type: choice
         options:
-          - "3.8"
-          - "3.9"
+          - 3.8
+          - 3.9
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 env:
-  PythonVersion: "3.8"
+  PythonVersion: 3.8
   OSDefault: ubuntu-latest
   DockerImageName: todoapp
 
@@ -39,7 +39,7 @@ jobs:
   python-ci:
     strategy:
       matrix:
-        PythonVersion: ["3.8", "3.9"]
+        PythonVersion: [3.8, 3.9]
         OsType: [ubuntu-latest, windows-latest]
 
     name: Python-CI
@@ -162,7 +162,7 @@ jobs:
       environment: development
       version: ${{ github.sha }}
       OSType: ${{ github.event.inputs.os || 'ubuntu-latest'}}
-      PythonVersion: ${{ github.event.inputs.python_version || '3.8' }}
+      PythonVersion: ${{ github.event.inputs.python_version || 3.8 }}
 
   deploy-helm-stg:
     name: Deploy helm to Staging
@@ -173,7 +173,7 @@ jobs:
       environment: staging
       version: ${{ github.sha }}
       OSType: ${{ github.event.inputs.os || 'ubuntu-latest'}}
-      PythonVersion: ${{ github.event.inputs.python_version || '3.8' }}
+      PythonVersion: ${{ github.event.inputs.python_version || 3.8 }}
       helm-values-path: ./todoapp/values/stg.yaml
       helm-release-name: todoapp-staging
       node-port: 30008

@@ -27,7 +27,7 @@ on:
         type: string
       node-port:
         description: "NodePort value for the service"
-        type: string
+        type: number
 
 jobs:
   deploy-helm:
