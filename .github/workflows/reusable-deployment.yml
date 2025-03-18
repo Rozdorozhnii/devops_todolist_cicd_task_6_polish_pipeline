@@ -18,7 +18,7 @@ on:
       PythonVersion:
         required: true
         description: "PythonVersion chosen for deploy"
-        type: number
+        type: string
       helm-values-path:
         type: string
         default: "./todoapp/values.yaml"
